@@ -14,8 +14,8 @@ alias zshsource='source ~/.zshrc;echo "ZSH updates sourced."'
 alias modx="chmod +x $1"
 alias modr="chmod +r $1"
 alias modw="chmod +w $1"
-alias getinfo="$(getInfo)"
-alias gitacp="$(gitpushall)"
+alias getinfo=getInfo
+alias gitacp=gitpushall
 
 function exit_status() {
     local state=$?   # to get the exit status
