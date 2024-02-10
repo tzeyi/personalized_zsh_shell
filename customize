@@ -15,7 +15,7 @@ alias modx="chmod +x $1"
 alias modr="chmod +r $1"
 alias modw="chmod +w $1"
 alias getinfo="$(getInfo)"
-alias gitstarter="$(gitpushall)"
+alias gitacp="$(gitpushall)"
 
 function exit_status() {
     local state=$?   # to get the exit status
@@ -25,15 +25,11 @@ function exit_status() {
 }
 
 function gitpushall() {
-    git init
     git add .
-    git commit -m "first commit"
-    git branch -M main
+    git commit -m "$1"
     git push
-    git remote add origin $1
-    git push -u origin main
 
-    echo "\nstarter git add commit push commands to github"
+    echo "git 3 in 1 command :)"
 }
 
 
