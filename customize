@@ -29,6 +29,11 @@ function gitpushall() {
     git commit -m "$1"
     git push
 
+    if ! git remote | grep -q "origin"; then
+        echo "No 'origin' remote repository configured. Please set up a remote repository."
+        return 1
+    fi
+
     echo "git 3 in 1 command :)"
 }
 
