@@ -1,0 +1,51 @@
+#!/bin/zsh
+
+autoload -Uz vcs_info  # load version control system package
+precmd() { vcs_info }  
+
+zstyle ':vcs_info:git:*' formats '%b '
+
+setopt PROMPT_SUBST
+PROMPT='%F{magenta}%n%f@%F{green}%*%f %F{cyan}%~%f %F{yellow}🪵 ${vcs_info_msg_0_}%f$ '
+RPROMPT='$(exit_status)'
+
+alias zshconfig='nano ~/.zshrc'
+alias zshsource='source ~/.zshrc;echo "ZSH updates sourced."'
+alias modx="chmod +x $1"
+alias modr="chmod +r $1"
+alias modw="chmod +w $1"
+alias info="$(getInfo)"
+alias gitstarter="$(gitpushall)"
+
+function exit_status() {
+    local state=$?   # to get the exit status
+    if [[ $state -ne 0 ]]; then
+        echo "%F{red}❌$state%f"
+    fi
+}
+
+function gitpushall() {
+    git init
+    git add .
+    git commit -m "first commit"
+    git branch -M main
+    git push
+    git remote add origin $1
+    git push -u origin main
+
+    echo "\nstarter git add commit push commands to github"
+}
+
+
+function getInfo() {
+    echo "login: $(logname)"
+    echo "OS: $(uname -s)"
+    echo "hostname: $(uname -n)" 
+
+    current=${1:-/}
+    used=$(df -h ${current} | tail -n 1 | awk '{print $3}')
+    space=$(df -h ${current} | tail -n 1 | awk '{print $2}')
+    capacity=$(df -h ${current} | tail -n 1 | awk '{print $5}')
+
+    echo "${current}'s device: ${used}/${space} (${capacity})"
+}
